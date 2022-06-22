@@ -13,9 +13,10 @@ class Home extends React.Component {
       data: {
         data: { movies },
       },
-    } = await axios.get('https://yts-proxy.now.sh/list_movies.json?sort_by=rating');
+    } =  await axios.get('https://pfvj29yvkb.execute-api.ap-northeast-2.amazonaws.com/Production');
     // 람다로 만든 API URL : 웹브라우저에서는 작동하는데 소스에 넣으면 시간이 오래 걸리고 있음 - 구조 재확인 필요
     // https://pfvj29yvkb.execute-api.ap-northeast-2.amazonaws.com/Production 
+    // await axios.get('https://yts-proxy.now.sh/list_movies.json?sort_by=rating');
     this.setState({ movies, isLoading: false });
   };
   componentDidMount() {
