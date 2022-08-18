@@ -14,7 +14,7 @@ class Home extends React.Component {
         data: { movies },
       },
     } =  await axios.get('https://pfvj29yvkb.execute-api.ap-northeast-2.amazonaws.com/Production');
-    // 람다로 만든 API URL : 웹브라우저에서는 작동하는데 소스에 넣으면 시간이 오래 걸리고 있음 - 구조 재확인 필요
+    // 람다로 만든 API URL : 웹브라우저에서는 작동하는데 소스에 넣으면 시간이 오래 걸리고 있음 - 구조 재확인 필요 : AWS API Gateway의 CORS 설정 변경 4XX 등
     // https://pfvj29yvkb.execute-api.ap-northeast-2.amazonaws.com/Production 
     // await axios.get('https://yts-proxy.now.sh/list_movies.json?sort_by=rating');
     this.setState({ movies, isLoading: false });
@@ -23,6 +23,7 @@ class Home extends React.Component {
     this.getMovies();
   }
   render() {
+    console.log(this.state);
     const { isLoading, movies } = this.state;
     return (
       <section className="container">
@@ -36,7 +37,7 @@ class Home extends React.Component {
               return (
                 <Movie
                   key={movie.id}
-                  id={movie.id}
+                  content_id={movie.id.toString()}
                   year={movie.year}
                   title={movie.title}
                   summary={movie.summary}
