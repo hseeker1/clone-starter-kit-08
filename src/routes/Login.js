@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import './Login.css';
+import caver from 'caver-js'
 
 
 function Login() {
@@ -23,6 +24,25 @@ const errors = {
   uname: "invalide username",
   upass: "invalid password"
 };
+
+const handlekaikas = (event) => {
+  event.preventDefault();
+  const { klaytn } = window
+
+  if (klaytn) {
+    try {
+      klaytn.enable()
+      this.setAccountInfo(klaytn)
+      klaytn.on('accountsChanged', () => this.setAccountInfo(klaytn))
+    } catch (error) {
+      console.log('User denied account access')
+    }
+  } else {
+    console.log('Non-Kaikas browser detected. You should consider trying Kaikas!')
+  }
+
+};
+
 
 const handleSubmit = (event) => {
   event.preventDefault();
@@ -63,6 +83,9 @@ const renderErrorMessage = (name) => name === errorMessages.name && (
      <div className="button-container">
       <input type = "submit" />
      </div>
+      <div className="button-container">
+          <input type="button" onClick={handlekaikas}/>
+       </div>
     </form>
     </div>
   );
