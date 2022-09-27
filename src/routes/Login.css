@@ -14,7 +14,7 @@
 }
 
 .login__container span:first-child {
-  font-size: 20px;
+  font-size: 10px;
 }
 
 .login__container span:last-child {
@@ -31,7 +31,7 @@ input[type="password"] {
 input[type="submit"]{
   margin-top : 10px;
   cursor: pointer;
-  font-size : 15px;
+  font-size : 10px;
   background: #01d28e;
   border : 1px solid #01d28e;
   color:#fff;
@@ -39,6 +39,20 @@ input[type="submit"]{
 }
 
 input[type="submit"]:hover{
+  background: #6cf0c2;
+}
+
+input[type="checkklaytn"]{
+  margin-top : 10px;
+  cursor: pointer;
+  font-size : 15px;
+  background: #01d28e;
+  border : 1px solid #01d28e;
+  color:#fff;
+  padding : 10px 20px;
+}
+
+input[type="checkklaytn"]:hover{
   background: #6cf0c2;
 }
 
