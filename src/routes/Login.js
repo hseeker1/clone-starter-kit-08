@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import ReactDOM from 'react-dom';
 import './Login.css';
-import caver, { KIP7 } from 'caver-js'
+// import caver, { KIP7 } from 'caver-js'
 import Caver from 'caver-js';
 
 
@@ -22,6 +23,34 @@ const logindb = [
   {
     uname : "sohan4",
     password : "pass4"
+  },
+  {
+    uname : "new1",
+    password : "pass1"
+  },
+  {
+    uname : "review1",
+    password : "pass1"
+  },
+  {
+    uname : "like1",
+    password : "pass1" //  좋아요 
+  },
+  {
+    uname : "test1",
+    password : "pass1" 
+  },
+  {
+    uname : "test2",
+    password : "pass2"  
+  },
+  {
+    uname : "test3",
+    password : "pass3" 
+  },
+  {
+    uname : "test4",
+    password : "pass4" 
   }
 ];
 
@@ -39,7 +68,7 @@ const mywallet = {
 
 const DataTransaction = {   //팝콘 전송 데이터 코딩 - not deligate 
   from: "",
-  to: "0x5c26c53f1358b16d5551438f7d33d8fafad03b05",  //U+test0001
+  to: "0x8d07FE42EEdC976B46375b641EE1cE9Be75c6186",  //kas_wallet_id
   amount: 0, // 시나리오에 정의한 팝콘 소모량 * 글쓰기 시 1팝콘 소모
   contractAddress: "0x59810df6700aa304a8890bf57841637ba36b529f", //팝콘 스마트콘트랙 어드레스
   gas: 3000000,
@@ -132,7 +161,7 @@ const testTrans = async () => {
  
   // 필요한 어드레스 등의 셋팅
   DataTransaction.from = mywallet.myaccnt;
-  DataTransaction.amount = 1.0 ; // 시나리오에 정의한 팝콘 소모량 * 글쓰기 시 1팝콘 소모
+  DataTransaction.amount = 10.0 ; // 시나리오에 정의한 팝콘 소모량 * 글쓰기 시 10팝콘 소모
  
   const data = caver.klay.abi.encodeFunctionCall(
       {
@@ -185,7 +214,7 @@ const testTrans = async () => {
 }
 
 const setkaikas = (event) => {
-  event.preventDefault();
+ // event.preventDefault();
   
   const { klaytn } = window;
 
@@ -194,12 +223,26 @@ const setkaikas = (event) => {
 };
 
 const handlekaikas = (event) => {
-  event.preventDefault();
+ // event.preventDefault();
   
   const { klaytn } = window;
 
   testTrans();
  
+};
+
+const getpct = async (event) => {
+  // event.preventDefault();
+
+  await axios.post('https://b4dvqo4yol.execute-api.ap-northeast-2.amazonaws.com/prod/',
+  {
+    "act" : "send_Pct",  
+    "to_wallet": mywallet.myaccnt,
+    "subtype" : "newcomer"
+  }).then(
+    () => { alert('팝콘을 받았습니다'); }
+  )
+  loadAccountInfo();
 };
 
 
@@ -255,6 +298,7 @@ const renderForm = (
     </div>
   );
 
+  
   const loggedrenderform = (
     <div className="form">
       <div> : {sessionStorage.getItem("uname")} is successfullly logged in</div>
@@ -262,6 +306,9 @@ const renderForm = (
           <input type="checkklaytn" value="kaikas" onClick={setkaikas} readOnly />
       </div>
       <label>Wallet address : {accnt} </label>
+      <div className="button-container">
+         <input type="checkklaytn" value="getpct" onClick={getpct} readOnly/>
+      </div>
       <div className="button-container">
          <input type="checkklaytn" value="transaction" onClick={handlekaikas} readOnly/>
       </div>
